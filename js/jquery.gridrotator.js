@@ -110,7 +110,7 @@
 
 
   $.GridRotator.scrollBarOffset = function() {
-    var body = $('body'), isScrolling = body.get(0).scrollHeight > body.innerHeight() || body.scrollTop() > 0;
+    var body = $('body'), isScrolling = body.get(0).scrollHeight > body.innerHeight() || body.scrollTop() > 0 || screen.height < body.innerHeight();
     if (isScrolling) {
       return parseInt(window.innerWidth, 10) - parseInt($(window).outerWidth(), 10);
     }
