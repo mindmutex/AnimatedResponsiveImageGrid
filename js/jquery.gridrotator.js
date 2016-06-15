@@ -110,7 +110,7 @@
 
 
   $.GridRotator.scrollBarOffset = function() {
-    var body = $('body'), isScrolling = body.get(0).scrollHeight > body.innerHeight() || body.scrollTop() > 0 || screen.height < body.innerHeight();
+    var body = $('body'), isScrolling = body.get(0).scrollHeight > body.innerHeight() || body.scrollTop() > 0;
     if (isScrolling) {
       return parseInt(window.innerWidth, 10) - parseInt($(window).outerWidth(), 10);
     }
@@ -340,58 +340,60 @@
       // sets the grid dimentions based on the container's width
       this._setGridDim();
 
+
       var scrollOffset = 0;
       do {
         scrollOffset = $.GridRotator.scrollBarOffset();
         
-      // reset
-      this.$list.empty();
-      this.$items = this.$itemsCache.clone().appendTo( this.$list );
 
-      var $outItems = this.$items.filter( ':gt(' + ( this.showTotal - 1 ) + ')' ),
-        $outAItems = $outItems.children( 'a' );
-
-      this.outItems.length = 0;
-
-      $outAItems.each( function( i ) {
-        self.outItems.push( $( this ) );
-      } );
-
-      $outItems.remove();
-
-        // container's width
-      
+        // reset
+        this.$list.empty();
+        this.$items = this.$itemsCache.clone().appendTo( this.$list );
+  
+        var $outItems = this.$items.filter( ':gt(' + ( this.showTotal - 1 ) + ')' ),
+          $outAItems = $outItems.children( 'a' );
+  
+        this.outItems.length = 0;
+  
+        $outAItems.each( function( i ) {
+          self.outItems.push( $( this ) );
+        } );
+  
+        $outItems.remove();
+  
+          // container's width
         
-      var containerWidth = ((document.defaultView ) ? parseInt(document.defaultView.getComputedStyle(this.$el.get(0), null).width) : this.$el.width()) - scrollOffset,
-        // item's width
-        itemWidth = Math.floor( containerWidth / this.columns ),
-        // calculate gap
-        gapWidth = containerWidth - ( this.columns * Math.floor( itemWidth ) );
-
-      for( var i = 0; i < this.rows; ++i ) {
-        for( var j = 0; j < this.columns; ++j ) {
-
-          var idx = this.columns * i + j,
-            $item = this.$items.eq( idx );
-
-          $item.css( {
-            width : j < Math.floor( gapWidth ) ? itemWidth + 1 : itemWidth,
-            height : Math.floor( itemWidth * this.options.heightToWidthRatio )
-          } );
-
-          if( $.inArray( idx, this.options.nochange ) !== -1 ) {
-            $item.addClass( 'ri-nochange' ).data( 'nochange', true );
+          
+        var containerWidth = ((document.defaultView ) ? parseInt(document.defaultView.getComputedStyle(this.$el.get(0), null).width) : this.$el.width()) - scrollOffset,
+          // item's width
+          itemWidth = Math.floor( containerWidth / this.columns ),
+          // calculate gap
+          gapWidth = containerWidth - ( this.columns * Math.floor( itemWidth ) );
+  
+        for( var i = 0; i < this.rows; ++i ) {
+          for( var j = 0; j < this.columns; ++j ) {
+  
+            var idx = this.columns * i + j,
+              $item = this.$items.eq( idx );
+  
+            $item.css( {
+              width : j < Math.floor( gapWidth ) ? itemWidth + 1 : itemWidth,
+              height : Math.floor( itemWidth * this.options.heightToWidthRatio )
+            } );
+  
+            if( $.inArray( idx, this.options.nochange ) !== -1 ) {
+              $item.addClass( 'ri-nochange' ).data( 'nochange', true );
+            }
+  
           }
-
+  
         }
-
-      }
-
-      if( this.options.preventClick ) {
-
-        this.$items.children().css( 'cursor', 'default' ).on( 'click.gridrotator', false );
-
-      }
+  
+        if( this.options.preventClick ) {
+  
+          this.$items.children().css( 'cursor', 'default' ).on( 'click.gridrotator', false );
+  
+        }
       } while (scrollOffset == 0 && $.GridRotator.scrollBarOffset() != 0)
       
       if( callback ) {
@@ -840,3 +842,4 @@
   };
 
 } )( jQuery, window );
+
