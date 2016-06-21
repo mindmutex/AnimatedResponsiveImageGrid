@@ -109,9 +109,14 @@
   };
 
 
+  $.GridRotator.isScrolling = function() {
+    var body = $('body');
+    
+    return body.get(0).scrollHeight > body.innerHeight() || body.scrollTop() > 0;
+  }; 
+
   $.GridRotator.scrollBarOffset = function() {
-    var body = $('body'), isScrolling = body.get(0).scrollHeight > body.innerHeight() || body.scrollTop() > 0;
-    if (isScrolling) {
+    if ($.GridRotator.isScrolling()) {
       return parseInt(window.innerWidth, 10) - parseInt($(window).outerWidth(), 10);
     }
     return 0;
@@ -341,6 +346,7 @@
       this._setGridDim();
 
 
+      var isScrolling = $.GridRotator.isScrolling();
       var scrollOffset = 0;
       do {
         scrollOffset = $.GridRotator.scrollBarOffset();
@@ -364,7 +370,8 @@
           // container's width
         
           
-        var containerWidth = ((document.defaultView ) ? parseInt(document.defaultView.getComputedStyle(this.$el.get(0), null).width) : this.$el.width()) - scrollOffset,
+        var containerWidth = ((document.defaultView ) ? 
+            parseInt(document.defaultView.getComputedStyle(this.$el.get(0), null).width) : this.$el.width()) - (isScrolling ? 0 : scrollOffset),
           // item's width
           itemWidth = Math.floor( containerWidth / this.columns ),
           // calculate gap
@@ -842,4 +849,3 @@
   };
 
 } )( jQuery, window );
-
