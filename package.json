@@ -1,0 +1,17 @@
+{
+  "name": "animated-responsive-image-grid",
+  "version": "1.0.0",
+  "description": "AnimatedResponsiveImageGrid\r =========",
+  "main": "./js/jquery.gridrotator.js",
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mindmutex/AnimatedResponsiveImageGrid.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mindmutex/AnimatedResponsiveImageGrid/issues"
+  },
+  "homepage": "https://github.com/mindmutex/AnimatedResponsiveImageGrid#readme"
+}
