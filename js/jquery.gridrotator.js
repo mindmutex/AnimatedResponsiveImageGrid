@@ -255,7 +255,7 @@
 
         var $img = $( this ), src = $img.attr( 'src' );
 
-        $( '<img/>' ).load( function() {
+        $( '<img/>' ).on('load', function() {
 
           ++loaded;
           $img.parent().css( 'background-image', 'url(' + src + ')' );
@@ -287,7 +287,7 @@
         } ).attr( 'src', src );
 
         // If something is wrong with the image…
-        $( '<img/>' ).error( function() {
+        $( '<img/>' ).on('error', function() {
 
           ++subbed;
 
